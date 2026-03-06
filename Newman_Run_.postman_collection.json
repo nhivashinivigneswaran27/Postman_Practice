@@ -1,0 +1,65 @@
+{
+  "info": {
+    "_postman_id": "d5c51b6c-8c97-4603-b8ac-cb736a85c816",
+    "name": "Newman_Run_",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "21922067",
+    "_collection_link": "https://go.postman.co/collection/21922067-d5c51b6c-8c97-4603-b8ac-cb736a85c816?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "NewmanCollectionRun",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.postman.com/collections/21922067-89f18b6d-7796-4a1d-ac73-f24b7a3ae124?apikey=PMAK-6994650c22941a0001a9e3ea-bdb9027b0cea989981198cbf3002e1359a",
+          "protocol": "https",
+          "host": [
+            "api",
+            "postman",
+            "com"
+          ],
+          "path": [
+            "collections",
+            "21922067-89f18b6d-7796-4a1d-ac73-f24b7a3ae124"
+          ],
+          "query": [
+            {
+              "key": "apikey",
+              "value": "PMAK-6994650c22941a0001a9e3ea-bdb9027b0cea989981198cbf3002e1359a"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Newman_Environment_Run",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.postman.com/environments/21922067-58745446-5531-41f6-8108-4da25bdff3d7?apikey=PMAK-6994650c22941a0001a9e3ea-bdb9027b0cea989981198cbf3002e1359a",
+          "protocol": "https",
+          "host": [
+            "api",
+            "postman",
+            "com"
+          ],
+          "path": [
+            "environments",
+            "21922067-58745446-5531-41f6-8108-4da25bdff3d7"
+          ],
+          "query": [
+            {
+              "key": "apikey",
+              "value": "PMAK-6994650c22941a0001a9e3ea-bdb9027b0cea989981198cbf3002e1359a"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

@@ -1,0 +1,4261 @@
+{
+  "info": {
+    "_postman_id": "89f18b6d-7796-4a1d-ac73-f24b7a3ae124",
+    "name": "Simple_Grocery_Store_API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "21922067",
+    "_collection_link": "https://go.postman.co/collection/21922067-89f18b6d-7796-4a1d-ac73-f24b7a3ae124?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Happy Path",
+      "item": [
+        {
+          "name": "API Status",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "pm.collectionVariables.set(\"status\", {name: 'Raja'});\r",
+                  "console.log(typeof pm.collectionVariables.get('status'));\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "status"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "API Status",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/status",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "status"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "15"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Feb 2026 14:07:59 GMT"
+                },
+                {
+                  "key": "X-Amzn-Trace-Id",
+                  "value": "Root=1-698f303f-5d92dbd918e20d28094599cf;Parent=5514183690858a08;Sampled=0;Lineage=1:9dbbed17:0"
+                },
+                {
+                  "key": "x-amzn-RequestId",
+                  "value": "d4058d79-4b93-4052-bdb3-ad726381dcfa"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type,X-Amz-Date,Authorization,X-Api-Key"
+                },
+                {
+                  "key": "x-amz-apigw-id",
+                  "value": "YuR58G3vIAMEpaA="
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+                },
+                {
+                  "key": "X-Cache",
+                  "value": "Miss from cloudfront"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 98505de3b08a10ebacb304bf006d1078.cloudfront.net (CloudFront)"
+                },
+                {
+                  "key": "X-Amz-Cf-Pop",
+                  "value": "MAA51-P1"
+                },
+                {
+                  "key": "X-Amz-Cf-Id",
+                  "value": "fSKd0RmJvsCXOjQfnJdsWrL3nntrAYsEzQI6NwwcgtMVtpOhOzjJ9w=="
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"UP\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get all Products",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Atleast one Product ID is set in collection variables\", function () {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "      pm.expect(responseJson).to.be.an('array');\r",
+                  "      pm.expect(responseJson.length).to.be.above(0);\r",
+                  "    console.log(responseJson[0]);\r",
+                  "    pm.expect(responseJson[0]).to.be.an('object');\r",
+                  "      pm.expect(responseJson[0]).to.be.haveOwnProperty('id')\r",
+                  "      pm.expect(responseJson[0].id).to.be.a('number');\r",
+                  "      pm.expect(responseJson[0]).to.haveOwnProperty('inStock');\r",
+                  "      pm.expect(responseJson[0].inStock).to.be.true;\r",
+                  "    pm.environment.set(\"productId1\", responseJson[3].id);\r",
+                  "    \r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Atleast one Product ID is set in collection variables\", function () {\r",
+                  "      const responseJson = pm.response.json();\r",
+                  "      pm.expect(responseJson).to.be.an('array');\r",
+                  "      pm.expect(responseJson.length).to.be.above(0);\r",
+                  "    pm.expect(responseJson[1]).to.be.an(\"object\");\r",
+                  "    pm.expect(responseJson[1]).to.have.property(\"id\");\r",
+                  "     pm.expect(responseJson[1].id).to.be.a('number');\r",
+                  "      pm.expect(responseJson[1]).to.haveOwnProperty('inStock');\r",
+                  "      pm.expect(responseJson[1].inStock).to.be.true;\r",
+                  "    pm.environment.set(\"productId2\", responseJson[4].id);\r",
+                  "  \r",
+                  "\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Atleast one Product ID is set in collection variables\", function () {\r",
+                  "     const responseJson = pm.response.json();\r",
+                  "      pm.expect(responseJson).to.be.an('array');\r",
+                  "      pm.expect(responseJson.length).to.be.above(0);\r",
+                  "    pm.expect(responseJson[2]).to.be.an(\"object\");\r",
+                  "    pm.expect(responseJson[2]).to.have.property(\"id\");\r",
+                  "     pm.expect(responseJson[2].id).to.be.a('number');\r",
+                  "      pm.expect(responseJson[2]).to.haveOwnProperty('inStock');\r",
+                  "      pm.expect(responseJson[2].inStock).to.be.true;\r",
+                  "    pm.environment.set(\"productId3\", responseJson[5].id);\r",
+                  "    \r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "eggs",
+                  "disabled": true
+                },
+                {
+                  "key": "category",
+                  "value": "fresh-produce",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "results",
+                  "value": "9",
+                  "disabled": true
+                },
+                {
+                  "key": "avaliable",
+                  "value": "true",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get all Products",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/products",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "products"
+                  ],
+                  "query": [
+                    {
+                      "key": "category",
+                      "value": "eggs",
+                      "disabled": true
+                    },
+                    {
+                      "key": "category",
+                      "value": "fresh-produce",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "results",
+                      "value": "9",
+                      "disabled": true
+                    },
+                    {
+                      "key": "avaliable",
+                      "value": "true",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "1725"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Feb 2026 14:08:27 GMT"
+                },
+                {
+                  "key": "X-Amzn-Trace-Id",
+                  "value": "Root=1-698f305b-71764ba603546b1a406d12c1;Parent=2d81bbf90deee711;Sampled=0;Lineage=1:9dbbed17:0"
+                },
+                {
+                  "key": "x-amzn-RequestId",
+                  "value": "0b8c8a6e-3b8b-4a5b-a7cb-5aea803c600b"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type,X-Amz-Date,Authorization,X-Api-Key"
+                },
+                {
+                  "key": "x-amz-apigw-id",
+                  "value": "YuR-aHYmoAMEWWw="
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+                },
+                {
+                  "key": "X-Cache",
+                  "value": "Miss from cloudfront"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 98505de3b08a10ebacb304bf006d1078.cloudfront.net (CloudFront)"
+                },
+                {
+                  "key": "X-Amz-Cf-Pop",
+                  "value": "MAA51-P1"
+                },
+                {
+                  "key": "X-Amz-Cf-Id",
+                  "value": "xxNetgmjY7jJZENKkoMeP_KejUFj0P5LKFpyyHk47R9NS5pAIWcrKQ=="
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": 1225,\n        \"category\": \"fresh-produce\",\n        \"name\": \"1/2 in. Brushless Hammer Drill\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 1709,\n        \"category\": \"meat-seafood\",\n        \"name\": \"Beef Choice Angus Ribeye Steak\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 1710,\n        \"category\": \"meat-seafood\",\n        \"name\": \"Angus Steak Burgers\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 2177,\n        \"category\": \"meat-seafood\",\n        \"name\": \"Cosco Three Step Steel Platform\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 2585,\n        \"category\": \"fresh-produce\",\n        \"name\": \"Green Cabbage Organic\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 3486,\n        \"category\": \"bread-bakery\",\n        \"name\": \"French Bread\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 3674,\n        \"category\": \"fresh-produce\",\n        \"name\": \"20V Max Cordless Drill Combo Kit\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 4641,\n        \"category\": \"coffee\",\n        \"name\": \"Don Francisco Colombia Supremo Medium Roast\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 4643,\n        \"category\": \"coffee\",\n        \"name\": \"Starbucks Coffee Variety Pack, 100% Arabica\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 4646,\n        \"category\": \"coffee\",\n        \"name\": \"Ethical Bean Medium Dark Roast, Espresso\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 4875,\n        \"category\": \"bread-bakery\",\n        \"name\": \"2800 Watt Inverter Generator\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 5477,\n        \"category\": \"dairy\",\n        \"name\": \"Cream Cheese\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 5478,\n        \"category\": \"dairy\",\n        \"name\": \"Low Fat Vanilla Yogurt\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 5499,\n        \"category\": \"bread-bakery\",\n        \"name\": \"Sourdough Bread\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 5774,\n        \"category\": \"candy\",\n        \"name\": \"HERSHEY'S, Milk Chocolate Almond\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 5851,\n        \"category\": \"fresh-produce\",\n        \"name\": \"Cucumber Organic\",\n        \"inStock\": false\n    },\n    {\n        \"id\": 6483,\n        \"category\": \"candy\",\n        \"name\": \"Cadbury Milk Chocolate\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 6543,\n        \"category\": \"bread-bakery\",\n        \"name\": \"Flour Tortillas\",\n        \"inStock\": false\n    },\n    {\n        \"id\": 7395,\n        \"category\": \"meat-seafood\",\n        \"name\": \"Boneless Skinless Chicken Breasts\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 8554,\n        \"category\": \"candy\",\n        \"name\": \"Kinder Joy Eggs\",\n        \"inStock\": true\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Get an Product",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Product ID matches with Respose body\", function () {\r",
+                  "    const response = pm.response.json();\r",
+                  "const getProductId=pm.environment.get(\"productId1\");\r",
+                  "    pm.expect(response).to.be.an('object');\r",
+                  "    pm.response.to.have.jsonBody('id', getProductId);\r",
+                  "pm.expect(getProductId).to.eql(response.id);\r",
+                  "});\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/products/:productId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products",
+                ":productId"
+              ],
+              "variable": [
+                {
+                  "key": "productId",
+                  "value": "{{productId1}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get an Product",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/products/:productId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "products",
+                    ":productId"
+                  ],
+                  "variable": [
+                    {
+                      "key": "productId",
+                      "value": "{{productId1}}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "149"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Feb 2026 14:10:59 GMT"
+                },
+                {
+                  "key": "X-Amzn-Trace-Id",
+                  "value": "Root=1-698f30f3-273b305e49a5d6144d287f3f;Parent=7604b21f2f2b02a8;Sampled=0;Lineage=1:9dbbed17:0"
+                },
+                {
+                  "key": "x-amzn-RequestId",
+                  "value": "eaa46138-1619-4b39-b3e7-f21dcacbe0a1"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type,X-Amz-Date,Authorization,X-Api-Key"
+                },
+                {
+                  "key": "x-amz-apigw-id",
+                  "value": "YuSWEG5ioAMEtxA="
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+                },
+                {
+                  "key": "X-Cache",
+                  "value": "Miss from cloudfront"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 49cebf2f9a095736b10af2d637906ba0.cloudfront.net (CloudFront)"
+                },
+                {
+                  "key": "X-Amz-Cf-Pop",
+                  "value": "MAA51-P1"
+                },
+                {
+                  "key": "X-Amz-Cf-Id",
+                  "value": "ZEdOBGIM_ZSKBD1HcSFu4ekC8AhMqfpTBjaCf4YcSfXNrhA9QsgftA=="
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 1225,\n    \"category\": \"fresh-produce\",\n    \"name\": \"1/2 in. Brushless Hammer Drill\",\n    \"manufacturer\": \"Bosch\",\n    \"price\": 12.98,\n    \"current-stock\": 12,\n    \"inStock\": true\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create a new Cart",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response has valid CartId\", function () {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "    console.log(responseJson);\r",
+                  "    pm.expect(responseJson).to.be.an('object');\r",
+                  "    pm.expect(responseJson).to.have.property('cartId');\r",
+                  "    const cartId = responseJson.cartId;\r",
+                  "    pm.expect(cartId).to.be.a('string');\r",
+                  "    pm.environment.set(\"cardId\", responseJson.cartId);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/carts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "carts"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Create a new Cart",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/carts",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "carts"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "49"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Feb 2026 09:49:31 GMT"
+                },
+                {
+                  "key": "X-Amzn-Trace-Id",
+                  "value": "Root=1-698ef3ab-5995562577fa87d436ac3404;Parent=1934a66c1571f729;Sampled=0;Lineage=1:9dbbed17:0"
+                },
+                {
+                  "key": "x-amzn-RequestId",
+                  "value": "4a3d7490-7052-49d2-bb6b-1276636e7fe6"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type,X-Amz-Date,Authorization,X-Api-Key"
+                },
+                {
+                  "key": "x-amz-apigw-id",
+                  "value": "YtsC1FsbIAMEfRg="
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+                },
+                {
+                  "key": "X-Cache",
+                  "value": "Miss from cloudfront"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 9c599852961e601fbfb51ee149f79836.cloudfront.net (CloudFront)"
+                },
+                {
+                  "key": "X-Amz-Cf-Pop",
+                  "value": "MAA50-P1"
+                },
+                {
+                  "key": "X-Amz-Cf-Id",
+                  "value": "EYwmKRvpdgCbAKtNgilgrJQS75BJuJ_fWqVC9JGOomYJUfFn__SMZA=="
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"created\": true,\n    \"cartId\": \"0yUPMKDZ_vYCoZOCZlpd6\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Cart",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/carts/:cartID",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "carts",
+                ":cartID"
+              ],
+              "variable": [
+                {
+                  "key": "cartID",
+                  "value": "{{cardId}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get Cart",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/carts/:cartID",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "carts",
+                    ":cartID"
+                  ],
+                  "variable": [
+                    {
+                      "key": "cartID",
+                      "value": "{{cardId}}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "49"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Feb 2026 14:11:49 GMT"
+                },
+                {
+                  "key": "X-Amzn-Trace-Id",
+                  "value": "Root=1-698f3125-1ca3e487683bae4d2ff9275f;Parent=0bcf841867ffaf6a;Sampled=0;Lineage=1:9dbbed17:0"
+                },
+                {
+                  "key": "x-amzn-RequestId",
+                  "value": "7d4934c7-53dd-4f20-89ec-6d7f55d3b0f9"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type,X-Amz-Date,Authorization,X-Api-Key"
+                },
+                {
+                  "key": "x-amz-apigw-id",
+                  "value": "YuSd7HMvIAMEjFA="
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+                },
+                {
+                  "key": "X-Cache",
+                  "value": "Miss from cloudfront"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 49cebf2f9a095736b10af2d637906ba0.cloudfront.net (CloudFront)"
+                },
+                {
+                  "key": "X-Amz-Cf-Pop",
+                  "value": "MAA51-P1"
+                },
+                {
+                  "key": "X-Amz-Cf-Id",
+                  "value": "oDMX-ZA7XocDM3jZxA5xjjPMk3Y2Grt_DR3Nf3SbKiQpitm1hqNwNQ=="
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"items\": [],\n    \"created\": \"2026-02-13T14:11:37.970Z\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Add an item to Cart",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Item created successfully\", function () {\r",
+                  "const responseJson = pm.response.json();\r",
+                  " pm.expect(responseJson).to.be.an('object');\r",
+                  "    pm.expect(responseJson).to.have.property('itemId');\r",
+                  "      pm.expect(responseJson).to.have.property('created');\r",
+                  "    pm.expect(responseJson.itemId).to.be.a('number');\r",
+                  "       pm.expect(responseJson.created).to.be.true;\r",
+                  "console.log(responseJson.itemId);\r",
+                  "pm.environment.set(\"itemId\", responseJson.itemId);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"productId\": {{productId3}},\r\n    \"quantity\": 3\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/carts/:cartID/items",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "carts",
+                ":cartID",
+                "items"
+              ],
+              "variable": [
+                {
+                  "key": "cartID",
+                  "value": "{{cardId}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Add an item to Cart",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"productId\": {{productId2}},\r\n    \"quantity\": 3\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/carts/:cartID/items",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "carts",
+                    ":cartID",
+                    "items"
+                  ],
+                  "variable": [
+                    {
+                      "key": "cartID",
+                      "value": "{{cardId}}"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "35"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Feb 2026 14:12:01 GMT"
+                },
+                {
+                  "key": "X-Amzn-Trace-Id",
+                  "value": "Root=1-698f3131-059ef8d04be049da4d0c2070;Parent=0fe85fe9c8463034;Sampled=0;Lineage=1:9dbbed17:0"
+                },
+                {
+                  "key": "x-amzn-RequestId",
+                  "value": "10a2b57f-5e4f-4d2d-bc6a-94d8d0f55579"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type,X-Amz-Date,Authorization,X-Api-Key"
+                },
+                {
+                  "key": "x-amz-apigw-id",
+                  "value": "YuSfwG1qIAMET6w="
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+                },
+                {
+                  "key": "X-Cache",
+                  "value": "Miss from cloudfront"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 49cebf2f9a095736b10af2d637906ba0.cloudfront.net (CloudFront)"
+                },
+                {
+                  "key": "X-Amz-Cf-Pop",
+                  "value": "MAA51-P1"
+                },
+                {
+                  "key": "X-Amz-Cf-Id",
+                  "value": "fxmG-zv3Amq1wxDD30jhZL0ihMA0ETO2QuX-Y0WDNn_q8heDwIUBhg=="
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"created\": true,\n    \"itemId\": 402016201\n}"
+            }
+          ]
+        },
+        {
+          "name": "Modify an item to Cart Copy",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "function getrandomnumber(num){\r",
+                  "    return Math.floor(Math.random() * num) + 1; // Returns a random number between 1 and num (inclusive)                \r",
+                  "}\r",
+                  "\r",
+                  "\r",
+                  "pm.environment.set(\"randomquantity\", getrandomnumber(14));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 204\", function () {\r",
+                  "    pm.response.to.have.status(204);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n      \"quantity\": {{randomquantity}}\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/carts/:cartID/items/:itemId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "carts",
+                ":cartID",
+                "items",
+                ":itemId"
+              ],
+              "variable": [
+                {
+                  "key": "cartID",
+                  "value": "{{cardId}}"
+                },
+                {
+                  "key": "itemId",
+                  "value": "{{itemId}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Modify an item to Cart Copy",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n      \"quantity\": {{randomquantity}}\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/carts/:cartID/items/:itemId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "carts",
+                    ":cartID",
+                    "items",
+                    ":itemId"
+                  ],
+                  "variable": [
+                    {
+                      "key": "cartID",
+                      "value": "{{cardId}}"
+                    },
+                    {
+                      "key": "itemId",
+                      "value": "{{itemId}}"
+                    }
+                  ]
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "0"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Feb 2026 14:12:48 GMT"
+                },
+                {
+                  "key": "X-Amzn-Trace-Id",
+                  "value": "Root=1-698f3160-5b5ef681630900e433438ed8;Parent=3e71f5350819955e;Sampled=0;Lineage=1:9dbbed17:0"
+                },
+                {
+                  "key": "x-amzn-RequestId",
+                  "value": "d07b749e-53b4-420d-859c-31ae1724b39f"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type,X-Amz-Date,Authorization,X-Api-Key"
+                },
+                {
+                  "key": "x-amz-apigw-id",
+                  "value": "YuSnIHcHIAMENJA="
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+                },
+                {
+                  "key": "X-Cache",
+                  "value": "Miss from cloudfront"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 49cebf2f9a095736b10af2d637906ba0.cloudfront.net (CloudFront)"
+                },
+                {
+                  "key": "X-Amz-Cf-Pop",
+                  "value": "MAA51-P1"
+                },
+                {
+                  "key": "X-Amz-Cf-Id",
+                  "value": "cGHy7jXJ83QQC6PxwoP7z30FWMW5PKsNs3olhPHbBKj4_abzh60wOw=="
+                }
+              ],
+              "cookie": [],
+              "body": null
+            }
+          ]
+        },
+        {
+          "name": "Get items for created Cart",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/carts/:cartID/items",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "carts",
+                ":cartID",
+                "items"
+              ],
+              "variable": [
+                {
+                  "key": "cartID",
+                  "value": "{{cardId}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get items for created Cart",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/carts/:cartID/items",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "carts",
+                    ":cartID",
+                    "items"
+                  ],
+                  "variable": [
+                    {
+                      "key": "cartID",
+                      "value": "{{cardId}}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "95"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Feb 2026 14:13:10 GMT"
+                },
+                {
+                  "key": "X-Amzn-Trace-Id",
+                  "value": "Root=1-698f3176-6621f1f82ae982d76b0e7e4f;Parent=73daa59db8db0264;Sampled=0;Lineage=1:9dbbed17:0"
+                },
+                {
+                  "key": "x-amzn-RequestId",
+                  "value": "11353d7d-f7f1-4b19-9dfe-d9f083ab7fec"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type,X-Amz-Date,Authorization,X-Api-Key"
+                },
+                {
+                  "key": "x-amz-apigw-id",
+                  "value": "YuSqgFYqoAMEQWA="
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+                },
+                {
+                  "key": "X-Cache",
+                  "value": "Miss from cloudfront"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 49cebf2f9a095736b10af2d637906ba0.cloudfront.net (CloudFront)"
+                },
+                {
+                  "key": "X-Amz-Cf-Pop",
+                  "value": "MAA51-P1"
+                },
+                {
+                  "key": "X-Amz-Cf-Id",
+                  "value": "DDLRdL0cPKp51J15I1ToHGOPMYQIXi0wTXuY1oQ7RepOI_-7KxzlsQ=="
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"productId\": 1709,\n        \"id\": 402016201,\n        \"quantity\": 3\n    },\n    {\n        \"productId\": 1225,\n        \"id\": 889685049,\n        \"quantity\": 9\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Update an Product in Cart",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "function getrandomnumber(num){\r",
+                  "    return Math.floor(Math.random() * num) + 1; // Returns a random number between 1 and num (inclusive)                \r",
+                  "}\r",
+                  "\r",
+                  "\r",
+                  "pm.collectionVariables.set(\"randomquantity\", getrandomnumber(15));"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 204\", function () {\r",
+                  "    pm.response.to.have.status(204);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"productId\": \"{{productId2}}\",\r\n    \"quantity\": {{randomquantity}}\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/carts/:cartId/items/:itemId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "carts",
+                ":cartId",
+                "items",
+                ":itemId"
+              ],
+              "variable": [
+                {
+                  "key": "cartId",
+                  "value": "{{cardId}}"
+                },
+                {
+                  "key": "itemId",
+                  "value": "{{itemId}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Update an Product in Cart",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"productId\": \"{{productId2}}\",\r\n    \"quantity\": {{randomquantity}}\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/carts/:cartId/items/:itemId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "carts",
+                    ":cartId",
+                    "items",
+                    ":itemId"
+                  ],
+                  "variable": [
+                    {
+                      "key": "cartId",
+                      "value": "{{cardId}}"
+                    },
+                    {
+                      "key": "itemId",
+                      "value": "{{itemId}}"
+                    }
+                  ]
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "0"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Feb 2026 14:13:29 GMT"
+                },
+                {
+                  "key": "X-Amzn-Trace-Id",
+                  "value": "Root=1-698f3189-368c652336710a77773a11ae;Parent=03bfa848d68b59d3;Sampled=0;Lineage=1:9dbbed17:0"
+                },
+                {
+                  "key": "x-amzn-RequestId",
+                  "value": "86efb91f-71d1-4e9f-8c42-e06d95ef0082"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type,X-Amz-Date,Authorization,X-Api-Key"
+                },
+                {
+                  "key": "x-amz-apigw-id",
+                  "value": "YuStgGRSIAMEd5A="
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+                },
+                {
+                  "key": "X-Cache",
+                  "value": "Miss from cloudfront"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 49cebf2f9a095736b10af2d637906ba0.cloudfront.net (CloudFront)"
+                },
+                {
+                  "key": "X-Amz-Cf-Pop",
+                  "value": "MAA51-P1"
+                },
+                {
+                  "key": "X-Amz-Cf-Id",
+                  "value": "MLy-xybUWHODvkzgbXAqoutSXv_VDnU5FCVcaRngbEb-S3TGRutNEw=="
+                }
+              ],
+              "cookie": [],
+              "body": null
+            }
+          ]
+        },
+        {
+          "name": "Register API Client",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Register API Token\", function () {\r",
+                  "const responseJson = pm.response.json();\r",
+                  "console.log(responseJson);\r",
+                  " pm.expect(responseJson).to.be.an('object');\r",
+                  "    pm.expect(responseJson).to.have.property('accessToken');\r",
+                  "    pm.expect(responseJson.accessToken).to.be.a('string');\r",
+                  "console.log(responseJson.accessToken);\r",
+                  "pm.environment.set(\"accessToken\", responseJson.accessToken);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n   \r\n   \"clientName\": \"{{$randomFullName}}\",\r\n   \"clientEmail\": \"{{$randomExampleEmail}}\"\r\n}\r\n\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api-clients",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api-clients"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Register API Client",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n   \r\n   \"clientName\": \"{{$randomFullName}}\",\r\n   \"clientEmail\": \"{{$randomExampleEmail}}\"\r\n}\r\n\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api-clients",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api-clients"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "82"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Feb 2026 14:13:57 GMT"
+                },
+                {
+                  "key": "X-Amzn-Trace-Id",
+                  "value": "Root=1-698f31a5-739370e03963117520043caa;Parent=2738fbd67d4ddcfb;Sampled=0;Lineage=1:9dbbed17:0"
+                },
+                {
+                  "key": "x-amzn-RequestId",
+                  "value": "9ee08bb8-5623-4b69-a569-6f53dee818c3"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type,X-Amz-Date,Authorization,X-Api-Key"
+                },
+                {
+                  "key": "x-amz-apigw-id",
+                  "value": "YuSx9Fb1oAMEWsA="
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+                },
+                {
+                  "key": "X-Cache",
+                  "value": "Miss from cloudfront"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 49cebf2f9a095736b10af2d637906ba0.cloudfront.net (CloudFront)"
+                },
+                {
+                  "key": "X-Amz-Cf-Pop",
+                  "value": "MAA51-P1"
+                },
+                {
+                  "key": "X-Amz-Cf-Id",
+                  "value": "jVDQtrPOMAaIDzg3FMeK-Qygo4F_RvO6DxdAphJHKzacWDzATX_tIg=="
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"accessToken\": \"9517993e5f14424296425e5cd9644b682d33db28358aa32bdb4a5f0f5cd1b5c2\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create an New Order",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 201\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response body contains Order ID\", function () {\r",
+                  "    const responseJson = pm.response.json();\r",
+                  "    console.log(responseJson);\r",
+                  "    pm.expect(responseJson).to.be.an('object');\r",
+                  "    pm.expect(responseJson).to.have.property('orderId');\r",
+                  "    pm.expect(responseJson).to.have.property('created');\r",
+                  "    pm.expect(responseJson.orderId).to.be.a('string');\r",
+                  "    pm.expect(responseJson.created).to.be.true;\r",
+                  "    console.log(responseJson.orderId);\r",
+                  "    pm.environment.set(\"orderId\", responseJson.orderId);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cartId\": \"{{cardId}}\",\r\n    \"customerName\": \"{{$randomFullName}}\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Create an New Order",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"cartId\": \"{{cardId}}\",\r\n    \"customerName\": \"{{$randomFullName}}\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "50"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Feb 2026 14:14:11 GMT"
+                },
+                {
+                  "key": "X-Amzn-Trace-Id",
+                  "value": "Root=1-698f31b3-0a8977e32696967a1d236d80;Parent=08a55b2977e6132f;Sampled=0;Lineage=1:9dbbed17:0"
+                },
+                {
+                  "key": "x-amzn-RequestId",
+                  "value": "90381fbb-3add-4faf-9a18-cee4d0798ad7"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type,X-Amz-Date,Authorization,X-Api-Key"
+                },
+                {
+                  "key": "x-amz-apigw-id",
+                  "value": "YuS0EFFhIAMEJ7A="
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+                },
+                {
+                  "key": "X-Cache",
+                  "value": "Miss from cloudfront"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 49cebf2f9a095736b10af2d637906ba0.cloudfront.net (CloudFront)"
+                },
+                {
+                  "key": "X-Amz-Cf-Pop",
+                  "value": "MAA51-P1"
+                },
+                {
+                  "key": "X-Amz-Cf-Id",
+                  "value": "T_SAOU_aHtvY8CVkYCKqWNYcHVJy1cIppQaIXSNs09rBLdtkvY5b-Q=="
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"created\": true,\n    \"orderId\": \"hjJzwJPPyF1MbC1kvxhbE\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get all Orders",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "console.clear();"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "\r",
+                  "});\r",
+                  "\r",
+                  "// pm.test(\"Order ID is correct\", function () {\r",
+                  "//     const response = pm.response.json();\r",
+                  "//     const getCollectionOrderID = pm.collectionVariables.get(\"orderId\");\r",
+                  "//     console.log(getCollectionOrderID);\r",
+                  "//     pm.expect(getCollectionOrderID, \"orderId collection variable must be set\").to.exist;\r",
+                  "//     let found = false;\r",
+                  "//     for (i = 0; i < response.length; i++) {\r",
+                  "//         const responseOrderId = response[i].id;\r",
+                  "\r",
+                  "//         if (responseOrderId === getCollectionOrderID) {\r",
+                  "//             found = true;\r",
+                  "//             pm.expect(responseOrderId, \"Order ID is matched\").to.equal(getCollectionOrderID);\r",
+                  "//             for (j = 0; j < response[i].items[j].length; j++) {\r",
+                  "//                 const responseitemId = response[i].items[j];\r",
+                  "//                 pm.expect(responseitemId).to.have.property(\"id\");\r",
+                  "//                 pm.expect(responseitemId).to.have.property(\"productId\");\r",
+                  "//                 pm.expect(responseitemId).to.have.property(\"quantity\");\r",
+                  "//             }\r",
+                  "//             break;\r",
+                  "//         }\r",
+                  "//     }\r",
+                  "//     pm.expect(found, \"Order ID not matches with\" + \" \" + getCollectionOrderID).to.be.true;\r",
+                  "// });\r",
+                  "\r",
+                  "\r",
+                  "// const logitems=(items, index)=>\r",
+                  "// {\r",
+                  "//       console.log(items, index);  \r",
+                  "//     }\r",
+                  "\r",
+                  "// let numbers = [2, 3, 4, 5];\r",
+                  "// // numbers.forEach(logitems);\r",
+                  "// const num=numbers.find(function items(item){return item===5});\r",
+                  "// console.log(num);\r",
+                  "\r",
+                  "// const persons = [{\r",
+                  "//     name: 'first',\r",
+                  "//     email: 'jake@example.com'\r",
+                  "// },\r",
+                  "// {\r",
+                  "//     name: 'Jamie',\r",
+                  "//     email: 'jamie@example.com'\r",
+                  "// }];\r",
+                  "\r",
+                  "\r",
+                  "// const name = persons.find((person) => person.name === 'first');\r",
+                  "// console.log(name.email\r",
+                  "// );\r",
+                  "\r",
+                  "pm.test(\"Created order in the list\", function () {\r",
+                  "const response=pm.response.json();\r",
+                  "const getCollectionOrderID = pm.environment.get(\"orderId\");\r",
+                  " const result=   response.find((order)=>order.id===getCollectionOrderID);\r",
+                  "console.log(result.id);\r",
+                  "pm.expect(result).to.be.an('object');\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get all Orders",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "989"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Feb 2026 14:14:29 GMT"
+                },
+                {
+                  "key": "X-Amzn-Trace-Id",
+                  "value": "Root=1-698f31c5-2836afa902552ef74aea067e;Parent=06abe96a231df712;Sampled=0;Lineage=1:9dbbed17:0"
+                },
+                {
+                  "key": "x-amzn-RequestId",
+                  "value": "d94a8747-8fe6-4ad2-a1a3-befccc97d6b9"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type,X-Amz-Date,Authorization,X-Api-Key"
+                },
+                {
+                  "key": "x-amz-apigw-id",
+                  "value": "YuS26GQkoAMEsDA="
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+                },
+                {
+                  "key": "X-Cache",
+                  "value": "Miss from cloudfront"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 49cebf2f9a095736b10af2d637906ba0.cloudfront.net (CloudFront)"
+                },
+                {
+                  "key": "X-Amz-Cf-Pop",
+                  "value": "MAA51-P1"
+                },
+                {
+                  "key": "X-Amz-Cf-Id",
+                  "value": "A_lWszFxjfnQx-mfIEVKn3s1ypxIAE6CEZCQZi761X3UwYWE7wbfTg=="
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": \"FX9McWd6SjIfY5iW-WhAn\",\n        \"items\": [\n            {\n                \"productId\": 1225,\n                \"id\": 419835915,\n                \"quantity\": 3\n            },\n            {\n                \"productId\": 1709,\n                \"id\": 525626408,\n                \"quantity\": 3\n            },\n            {\n                \"productId\": 1225,\n                \"id\": 894534949,\n                \"quantity\": 2\n            }\n        ],\n        \"customerName\": \"Dianna Kerluke\",\n        \"created\": \"2026-02-12T09:20:29.447Z\",\n        \"comment\": \"\"\n    },\n    {\n        \"id\": \"i_W8osAJH62rWylWb4Phu\",\n        \"items\": [\n            {\n                \"productId\": 1225,\n                \"id\": 54362745,\n                \"quantity\": 3\n            },\n            {\n                \"productId\": 1709,\n                \"id\": 327344360,\n                \"quantity\": 3\n            }\n        ],\n        \"customerName\": \"Rosie Zieme\",\n        \"created\": \"2026-02-12T12:18:58.866Z\",\n        \"comment\": \"\"\n    },\n    {\n        \"id\": \"uHowNqEFCZdqDgsnfy50N\",\n        \"items\": [\n            {\n                \"productId\": 1709,\n                \"id\": 782537132,\n                \"quantity\": 3\n            }\n        ],\n        \"customerName\": \"Travis Johnston\",\n        \"created\": \"2026-02-12T12:22:07.027Z\",\n        \"comment\": \"\"\n    },\n    {\n        \"id\": \"1KK5OWaW5w8Vqav1Z0GzX\",\n        \"items\": [\n            {\n                \"productId\": 1709,\n                \"id\": 558597822,\n                \"quantity\": 3\n            }\n        ],\n        \"customerName\": \"Louis Dickinson\",\n        \"created\": \"2026-02-13T09:49:42.727Z\",\n        \"comment\": \"\"\n    },\n    {\n        \"id\": \"hjJzwJPPyF1MbC1kvxhbE\",\n        \"items\": [\n            {\n                \"productId\": 1709,\n                \"id\": 402016201,\n                \"quantity\": 3\n            }\n        ],\n        \"customerName\": \"Troy Gottlieb\",\n        \"created\": \"2026-02-13T14:14:11.281Z\",\n        \"comment\": \"\"\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Get an Single Order",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "console.clear();"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Order ID matches with Respose body\", function () {\r",
+                  "    const response = pm.response.json();\r",
+                  "const getOrderId=pm.environment.get(\"orderId\");\r",
+                  "    pm.expect(response).to.be.an('object');\r",
+                  "    pm.response.to.have.property('id');\r",
+                  "    pm.expect(response.id).to.eql(getOrderId);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/orders/:orderId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders",
+                ":orderId"
+              ],
+              "variable": [
+                {
+                  "key": "orderId",
+                  "value": "{{orderId}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get an Single Order",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orders/:orderId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders",
+                    ":orderId"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orderId",
+                      "value": "{{orderId}}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "168"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Feb 2026 14:14:54 GMT"
+                },
+                {
+                  "key": "X-Amzn-Trace-Id",
+                  "value": "Root=1-698f31de-5795ea704fad78740f9d5377;Parent=287b6eb97cb170ba;Sampled=0;Lineage=1:9dbbed17:0"
+                },
+                {
+                  "key": "x-amzn-RequestId",
+                  "value": "87928e6f-0bc4-4104-b93b-efc879222cfb"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type,X-Amz-Date,Authorization,X-Api-Key"
+                },
+                {
+                  "key": "x-amz-apigw-id",
+                  "value": "YuS63EUwIAMEjZw="
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+                },
+                {
+                  "key": "X-Cache",
+                  "value": "Miss from cloudfront"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 49cebf2f9a095736b10af2d637906ba0.cloudfront.net (CloudFront)"
+                },
+                {
+                  "key": "X-Amz-Cf-Pop",
+                  "value": "MAA51-P1"
+                },
+                {
+                  "key": "X-Amz-Cf-Id",
+                  "value": "ZE9PYkZurz2NFe_y-L6UK0eWIETFSZRk67v92PpqPQFmsgySNtW1ZA=="
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"hjJzwJPPyF1MbC1kvxhbE\",\n    \"items\": [\n        {\n            \"productId\": 1709,\n            \"id\": 402016201,\n            \"quantity\": 3\n        }\n    ],\n    \"customerName\": \"Troy Gottlieb\",\n    \"created\": \"2026-02-13T14:14:11.281Z\",\n    \"comment\": \"\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update an Order",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "console.clear();"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 204\", function () {\r",
+                  "    pm.response.to.have.status(204);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "[{\r\n \"customerName\": \"{{$randomFullName}}\",\r\n \"comment\": \"null\"\r\n},\r\n{\r\n \"customerName\": \"{{$randomFullName}}\",\r\n \"comment\": \"null\"\r\n}\r\n{\r\n \"customerName\": \"{{$randomFullName}}\",\r\n \"comment\": \"null\"\r\n}]\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/orders/:orderId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders",
+                ":orderId"
+              ],
+              "variable": [
+                {
+                  "key": "orderId",
+                  "value": "{{orderId}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Update an Order",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n \"customerName\": \"{{$randomFullName}}\",\r\n \"comment\": \"\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orders/:orderId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders",
+                    ":orderId"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orderId",
+                      "value": "{{orderId}}"
+                    }
+                  ]
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "0"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Feb 2026 14:16:58 GMT"
+                },
+                {
+                  "key": "X-Amzn-Trace-Id",
+                  "value": "Root=1-698f325a-240deeee6a4ee8e2121b70f5;Parent=15775e3e070a4041;Sampled=0;Lineage=1:9dbbed17:0"
+                },
+                {
+                  "key": "x-amzn-RequestId",
+                  "value": "407b4a49-20a6-453f-81d6-d46504824490"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type,X-Amz-Date,Authorization,X-Api-Key"
+                },
+                {
+                  "key": "x-amz-apigw-id",
+                  "value": "YuTOOHiJoAMEuBw="
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+                },
+                {
+                  "key": "X-Cache",
+                  "value": "Miss from cloudfront"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 ca1c8b6b5358ac1cd23fb6b1d3ab8756.cloudfront.net (CloudFront)"
+                },
+                {
+                  "key": "X-Amz-Cf-Pop",
+                  "value": "MAA51-P1"
+                },
+                {
+                  "key": "X-Amz-Cf-Id",
+                  "value": "iu317nu_nwthEDhtatoDEu8GUMyIcWf4rNRCv83_RxLXdfm458pk4Q=="
+                }
+              ],
+              "cookie": [],
+              "body": null
+            }
+          ]
+        },
+        {
+          "name": "Delete an item in Cart",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// pm.test(\"Status code is 204\", function () {\r",
+                  "//     pm.response.to.have.status(204);\r",
+                  "// });"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/carts/:cartID/items/:itemId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "carts",
+                ":cartID",
+                "items",
+                ":itemId"
+              ],
+              "variable": [
+                {
+                  "key": "cartID",
+                  "value": "{{cardId}}"
+                },
+                {
+                  "key": "itemId",
+                  "value": "{{itemId}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Delete an item in Cart",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/carts/:cartID/items/:itemId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "carts",
+                    ":cartID",
+                    "items",
+                    ":itemId"
+                  ],
+                  "variable": [
+                    {
+                      "key": "cartID",
+                      "value": "{{cardId}}"
+                    },
+                    {
+                      "key": "itemId",
+                      "value": "{{itemId}}"
+                    }
+                  ]
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "0"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Feb 2026 14:13:42 GMT"
+                },
+                {
+                  "key": "X-Amzn-Trace-Id",
+                  "value": "Root=1-698f3196-4801728a1a4946364688b11b;Parent=439308fd0b1c5eca;Sampled=0;Lineage=1:9dbbed17:0"
+                },
+                {
+                  "key": "x-amzn-RequestId",
+                  "value": "a8eae48f-00de-4c99-850c-d3c0c4ecfc64"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type,X-Amz-Date,Authorization,X-Api-Key"
+                },
+                {
+                  "key": "x-amz-apigw-id",
+                  "value": "YuSvkEUaIAMEaqA="
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+                },
+                {
+                  "key": "X-Cache",
+                  "value": "Miss from cloudfront"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 49cebf2f9a095736b10af2d637906ba0.cloudfront.net (CloudFront)"
+                },
+                {
+                  "key": "X-Amz-Cf-Pop",
+                  "value": "MAA51-P1"
+                },
+                {
+                  "key": "X-Amz-Cf-Id",
+                  "value": "LIjpfdRGm_qV8Gbxft2v3aD_UTe8OvNj2YjHkYyhG70IJqNPBgIUtA=="
+                }
+              ],
+              "cookie": [],
+              "body": null
+            }
+          ]
+        },
+        {
+          "name": "Delete an Order",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "console.clear();"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 204\", function () {\r",
+                  "    pm.response.to.have.status(204);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/orders/:orderId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders",
+                ":orderId"
+              ],
+              "variable": [
+                {
+                  "key": "orderId",
+                  "value": "{{orderId}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Delete an Order",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orders/:orderId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders",
+                    ":orderId"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orderId",
+                      "value": "{{orderId}}"
+                    }
+                  ]
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "0"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Feb 2026 14:17:24 GMT"
+                },
+                {
+                  "key": "X-Amzn-Trace-Id",
+                  "value": "Root=1-698f3274-113b0f27751b87ab2b29fc02;Parent=0ad06ff0b5f72787;Sampled=0;Lineage=1:9dbbed17:0"
+                },
+                {
+                  "key": "x-amzn-RequestId",
+                  "value": "82a4f951-0fe5-4cff-b4f8-70cd5259fa4d"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type,X-Amz-Date,Authorization,X-Api-Key"
+                },
+                {
+                  "key": "x-amz-apigw-id",
+                  "value": "YuTSUHDJIAMER-A="
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+                },
+                {
+                  "key": "X-Cache",
+                  "value": "Miss from cloudfront"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 ca1c8b6b5358ac1cd23fb6b1d3ab8756.cloudfront.net (CloudFront)"
+                },
+                {
+                  "key": "X-Amz-Cf-Pop",
+                  "value": "MAA51-P1"
+                },
+                {
+                  "key": "X-Amz-Cf-Id",
+                  "value": "cP-xSRpCSThasUdo6ur9Cz_Eo30GCsTRIxVN0uNXygDEktqaOaEKPg=="
+                }
+              ],
+              "cookie": [],
+              "body": null
+            }
+          ]
+        },
+        {
+          "name": "Get an Single Order after delete",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "console.clear();"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 404\", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Error message contains the deleted order id\", function () {\r",
+                  "    const response = pm.response.json();\r",
+                  "const getOrderId=pm.environment.get(\"orderId\");\r",
+                  "console.log(pm.environment.get(\"orderId\"));\r",
+                  "    pm.expect(response).to.be.an('object');\r",
+                  "    pm.expect(response).to.have.property('error');\r",
+                  "    pm.expect(response.error).to.include(getOrderId);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/orders/:orderId",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orders",
+                ":orderId"
+              ],
+              "variable": [
+                {
+                  "key": "orderId",
+                  "value": "{{orderId}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get an Single Order after delete",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orders/:orderId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders",
+                    ":orderId"
+                  ],
+                  "variable": [
+                    {
+                      "key": "orderId",
+                      "value": "{{orderId}}"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "51"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Feb 2026 14:17:52 GMT"
+                },
+                {
+                  "key": "X-Amzn-Trace-Id",
+                  "value": "Root=1-698f3290-030237d03ac497c351c8c22f;Parent=2974a50849bd5156;Sampled=0;Lineage=1:9dbbed17:0"
+                },
+                {
+                  "key": "x-amzn-RequestId",
+                  "value": "61417f48-5896-4fb3-82e5-a8c9dbfecb61"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type,X-Amz-Date,Authorization,X-Api-Key"
+                },
+                {
+                  "key": "x-amz-apigw-id",
+                  "value": "YuTWnHFnIAMEtng="
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+                },
+                {
+                  "key": "X-Cache",
+                  "value": "Error from cloudfront"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 ca1c8b6b5358ac1cd23fb6b1d3ab8756.cloudfront.net (CloudFront)"
+                },
+                {
+                  "key": "X-Amz-Cf-Pop",
+                  "value": "MAA51-P1"
+                },
+                {
+                  "key": "X-Amz-Cf-Id",
+                  "value": "7wkFWso1V_ULsxlrVy9M1xpdv8SbtdOEbBWLFGe1VAdCzLWLiiI28A=="
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"error\": \"No order with id hjJzwJPPyF1MbC1kvxhbE.\"\n}"
+            }
+          ]
+        }
+      ],
+      "description": "Reference Link: [https://github.com/vdespa/Postman-Complete-Guide-API-Testing/blob/main/simple-grocery-store-api.md#simple-grocery-store-api](https://github.com/vdespa/Postman-Complete-Guide-API-Testing/blob/main/simple-grocery-store-api.md#simple-grocery-store-api)",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              "console.clear();"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Missing Autentication",
+      "item": [
+        {
+          "name": "Missing Header",
+          "item": [
+            {
+              "name": "Get all Orders",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "console.clear();"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "\r",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Get all Orders",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/orders",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orders"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Content-Length",
+                      "value": "41"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "keep-alive"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Fri, 13 Feb 2026 14:18:46 GMT"
+                    },
+                    {
+                      "key": "X-Amzn-Trace-Id",
+                      "value": "Root=1-698f32c6-5e8b0d99421ae66665ffe0eb;Parent=5a94bcda572b0378;Sampled=0;Lineage=1:9dbbed17:0"
+                    },
+                    {
+                      "key": "x-amzn-RequestId",
+                      "value": "022e6c02-b2af-42a3-aa3a-6cbfa59894ca"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Headers",
+                      "value": "Content-Type,X-Amz-Date,Authorization,X-Api-Key"
+                    },
+                    {
+                      "key": "x-amz-apigw-id",
+                      "value": "YuTfIETIIAMEs8A="
+                    },
+                    {
+                      "key": "Access-Control-Allow-Methods",
+                      "value": "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+                    },
+                    {
+                      "key": "X-Cache",
+                      "value": "Error from cloudfront"
+                    },
+                    {
+                      "key": "Via",
+                      "value": "1.1 ca1c8b6b5358ac1cd23fb6b1d3ab8756.cloudfront.net (CloudFront)"
+                    },
+                    {
+                      "key": "X-Amz-Cf-Pop",
+                      "value": "MAA51-P1"
+                    },
+                    {
+                      "key": "X-Amz-Cf-Id",
+                      "value": "2FPC4QVFKaU1_Cd4HjnF2CrSaX3XBwJ-d7_hyP0cH78TZQCTHx-Yag=="
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"error\": \"Missing Authorization header.\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "Create an New Order",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "console.clear();"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"cartId\": \"jp4qYWaZXjDRhZwHQ-CGV\",\r\n    \"customerName\": \"{{$randomFullName}}\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Create an New Order",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"cartId\": \"jp4qYWaZXjDRhZwHQ-CGV\",\r\n    \"customerName\": \"{{$randomFullName}}\"\r\n}\r\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/orders",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orders"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Content-Length",
+                      "value": "41"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "keep-alive"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Fri, 13 Feb 2026 14:19:14 GMT"
+                    },
+                    {
+                      "key": "X-Amzn-Trace-Id",
+                      "value": "Root=1-698f32e2-400749e91c5b93354b80beac;Parent=625236394f85b840;Sampled=0;Lineage=1:9dbbed17:0"
+                    },
+                    {
+                      "key": "x-amzn-RequestId",
+                      "value": "5dbedca3-1236-4815-819f-df66be94fc22"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Headers",
+                      "value": "Content-Type,X-Amz-Date,Authorization,X-Api-Key"
+                    },
+                    {
+                      "key": "x-amz-apigw-id",
+                      "value": "YuTjfHMlIAMECJw="
+                    },
+                    {
+                      "key": "Access-Control-Allow-Methods",
+                      "value": "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+                    },
+                    {
+                      "key": "X-Cache",
+                      "value": "Error from cloudfront"
+                    },
+                    {
+                      "key": "Via",
+                      "value": "1.1 ca1c8b6b5358ac1cd23fb6b1d3ab8756.cloudfront.net (CloudFront)"
+                    },
+                    {
+                      "key": "X-Amz-Cf-Pop",
+                      "value": "MAA51-P1"
+                    },
+                    {
+                      "key": "X-Amz-Cf-Id",
+                      "value": "TFPR9-_XEOg5qPmnSG1RdW2WdnB5tHHGCPn8Mr3NFNHgRi9HTrdDWg=="
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"error\": \"Missing Authorization header.\"\n}"
+                }
+              ]
+            }
+          ],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {},
+                "exec": [
+                  ""
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {},
+                "exec": [
+                  "const responseJson = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Error message is 'Missing Authorization header.'\", function () {\r",
+                  "    pm.expect(responseJson.error).to.eql(\"Missing Authorization header.\");\r",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Invalid Token",
+          "item": [
+            {
+              "name": "Create an New Order",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "console.clear();"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "ac76c81d143f5d81ef320872ddb3234221d5da79a338ec42cd719176d0bb511",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"cartId\": \"jp4qYWaZXjDRhZwHQ-CGV\",\r\n    \"customerName\": \"{{$randomFullName}}\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Create an New Order",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "ac76c81d143f5d81ef320872ddb3234221d5da79a338ec42cd719176d0bb511",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"cartId\": \"jp4qYWaZXjDRhZwHQ-CGV\",\r\n    \"customerName\": \"{{$randomFullName}}\"\r\n}\r\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/orders",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orders"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Content-Length",
+                      "value": "33"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "keep-alive"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Fri, 13 Feb 2026 14:19:41 GMT"
+                    },
+                    {
+                      "key": "X-Amzn-Trace-Id",
+                      "value": "Root=1-698f32fc-554c495a40d8cad26af2d31d;Parent=2e394f008449d292;Sampled=0;Lineage=1:9dbbed17:0"
+                    },
+                    {
+                      "key": "x-amzn-RequestId",
+                      "value": "d0416093-a4b1-42c6-a08b-20e7a98cea3d"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Headers",
+                      "value": "Content-Type,X-Amz-Date,Authorization,X-Api-Key"
+                    },
+                    {
+                      "key": "x-amz-apigw-id",
+                      "value": "YuTnlECVoAMEvdg="
+                    },
+                    {
+                      "key": "Access-Control-Allow-Methods",
+                      "value": "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+                    },
+                    {
+                      "key": "X-Cache",
+                      "value": "Error from cloudfront"
+                    },
+                    {
+                      "key": "Via",
+                      "value": "1.1 ca1c8b6b5358ac1cd23fb6b1d3ab8756.cloudfront.net (CloudFront)"
+                    },
+                    {
+                      "key": "X-Amz-Cf-Pop",
+                      "value": "MAA51-P1"
+                    },
+                    {
+                      "key": "X-Amz-Cf-Id",
+                      "value": "bdJ-nZGDXpfjfBNhByFe_ln7KNNokrHcllCpHxUp3T-_MlZyKhSStQ=="
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"error\": \"Invalid bearer token.\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "Get all Orders",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "console.clear();"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "\r",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "ac76c81d143f5d81ef320872ddb3234221d5da79a338ec42cd719176d0bb511",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orders",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Get all Orders",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "ac76c81d143f5d81ef320872ddb3234221d5da79a338ec42cd719176d0bb511",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/orders",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orders"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Content-Length",
+                      "value": "33"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "keep-alive"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Fri, 13 Feb 2026 14:20:07 GMT"
+                    },
+                    {
+                      "key": "X-Amzn-Trace-Id",
+                      "value": "Root=1-698f3317-006b0be22d785d4c352de866;Parent=2b73820338114a75;Sampled=0;Lineage=1:9dbbed17:0"
+                    },
+                    {
+                      "key": "x-amzn-RequestId",
+                      "value": "b1cee221-faab-4808-a8d7-7991aae812ff"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Headers",
+                      "value": "Content-Type,X-Amz-Date,Authorization,X-Api-Key"
+                    },
+                    {
+                      "key": "x-amz-apigw-id",
+                      "value": "YuTrwHCyoAMECtg="
+                    },
+                    {
+                      "key": "Access-Control-Allow-Methods",
+                      "value": "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+                    },
+                    {
+                      "key": "X-Cache",
+                      "value": "Error from cloudfront"
+                    },
+                    {
+                      "key": "Via",
+                      "value": "1.1 ca1c8b6b5358ac1cd23fb6b1d3ab8756.cloudfront.net (CloudFront)"
+                    },
+                    {
+                      "key": "X-Amz-Cf-Pop",
+                      "value": "MAA51-P1"
+                    },
+                    {
+                      "key": "X-Amz-Cf-Id",
+                      "value": "vynevarWmxM1-CiHgAjSKHSJ14b3F61-lRdpn3WVLqZfTyAbiSzZhQ=="
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"error\": \"Invalid bearer token.\"\n}"
+                }
+              ]
+            }
+          ],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {},
+                "exec": [
+                  ""
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {},
+                "exec": [
+                  "\r",
+                  "const responseJson = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Error message is 'Invalid bearer token.'\", function () {   \r",
+                  "    pm.expect(responseJson.error).to.eql(\"Invalid bearer token.\");\r",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              "console.clear();"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              "pm.test(\"Status code is 401\", function () {\r",
+              "    pm.response.to.have.status(401);\r",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Invalid Inputs",
+      "item": [
+        {
+          "name": "Get all Products-Invalid Category",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "console.clear();"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "\r",
+                  "pm.test(\"Error Message as Invalid value for query parameter Category\", function () {\r",
+                  "    pm.expect(pm.response.json().error).to.string('Invalid value for query parameter \\'category\\'.');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/products?category=Invalid Category",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "Invalid Category"
+                },
+                {
+                  "key": "category",
+                  "value": "fresh-produce",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "results",
+                  "value": "9",
+                  "disabled": true
+                },
+                {
+                  "key": "avaliable",
+                  "value": "false",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get all Products-Invalid Category",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/products?category=Invalid Category",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "products"
+                  ],
+                  "query": [
+                    {
+                      "key": "category",
+                      "value": "Invalid Category"
+                    },
+                    {
+                      "key": "category",
+                      "value": "fresh-produce",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "results",
+                      "value": "9",
+                      "disabled": true
+                    },
+                    {
+                      "key": "avaliable",
+                      "value": "false",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "143"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Feb 2026 14:20:41 GMT"
+                },
+                {
+                  "key": "X-Amzn-Trace-Id",
+                  "value": "Root=1-698f3339-437134b755ed9d48652532f2;Parent=570ec2b4ee10706d;Sampled=0;Lineage=1:9dbbed17:0"
+                },
+                {
+                  "key": "x-amzn-RequestId",
+                  "value": "52e9b062-fc00-4f6e-8630-b571bda7fd21"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type,X-Amz-Date,Authorization,X-Api-Key"
+                },
+                {
+                  "key": "x-amz-apigw-id",
+                  "value": "YuTw-HLNIAMEQ9A="
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+                },
+                {
+                  "key": "X-Cache",
+                  "value": "Error from cloudfront"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 ca1c8b6b5358ac1cd23fb6b1d3ab8756.cloudfront.net (CloudFront)"
+                },
+                {
+                  "key": "X-Amz-Cf-Pop",
+                  "value": "MAA51-P1"
+                },
+                {
+                  "key": "X-Amz-Cf-Id",
+                  "value": "vVL11ydj9FRx-19IZseoFuCOuQG8qvaC3DSUHyTG9BFtz6dAESEghw=="
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"error\": \"Invalid value for query parameter 'category'. Must be one of: coffee, fresh-produce, meat-seafood, candy, dairy, bread-bakery, eggs\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get all Products-Results > maximum",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "console.clear();"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "\r",
+                  "pm.test(\"Error Message as Invalid value for query parameter Results maximum\", function () {\r",
+                  "    pm.expect(pm.response.json().error).contain('Invalid value for query parameter \\'results\\'. Cannot be greater than 20');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/products?results=21",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "coffee",
+                  "disabled": true
+                },
+                {
+                  "key": "category",
+                  "value": "fresh-produce",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "results",
+                  "value": "21"
+                },
+                {
+                  "key": "avaliable",
+                  "value": "false",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get all Products-Results > maximum",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/products?results=21",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "products"
+                  ],
+                  "query": [
+                    {
+                      "key": "category",
+                      "value": "coffee",
+                      "disabled": true
+                    },
+                    {
+                      "key": "category",
+                      "value": "fresh-produce",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "results",
+                      "value": "21"
+                    },
+                    {
+                      "key": "avaliable",
+                      "value": "false",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "83"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Feb 2026 14:21:06 GMT"
+                },
+                {
+                  "key": "X-Amzn-Trace-Id",
+                  "value": "Root=1-698f3352-4be16dcb6c0aaa884fa4518f;Parent=2a3b0d89332ce4f6;Sampled=0;Lineage=1:9dbbed17:0"
+                },
+                {
+                  "key": "x-amzn-RequestId",
+                  "value": "35ea4055-cfed-48b3-94c9-fede0ecc0064"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type,X-Amz-Date,Authorization,X-Api-Key"
+                },
+                {
+                  "key": "x-amz-apigw-id",
+                  "value": "YuT1AHgwoAMEvqA="
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+                },
+                {
+                  "key": "X-Cache",
+                  "value": "Error from cloudfront"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 ca1c8b6b5358ac1cd23fb6b1d3ab8756.cloudfront.net (CloudFront)"
+                },
+                {
+                  "key": "X-Amz-Cf-Pop",
+                  "value": "MAA51-P1"
+                },
+                {
+                  "key": "X-Amz-Cf-Id",
+                  "value": "oeY9sUh1RoEG_TKMfBupZHGd11eh2kC29B-ewj74l7yNyS7v33qaIQ=="
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"error\": \"Invalid value for query parameter 'results'. Cannot be greater than 20.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get all Products-Results > minimum",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "console.clear();"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Error Message as Invalid value for query parameter Results minimum\", function () {\r",
+                  "    pm.expect(pm.response.json().error).to.eql('Invalid value for query parameter \\'results\\'. Must be greater than 0.');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/products?results=-1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "coffee",
+                  "disabled": true
+                },
+                {
+                  "key": "category",
+                  "value": "fresh-produce",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "results",
+                  "value": "-1"
+                },
+                {
+                  "key": "avaliable",
+                  "value": "false",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "To check the minimum data less than 1"
+          },
+          "response": [
+            {
+              "name": "Get all Products-Results > minimum",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/products?results=-1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "products"
+                  ],
+                  "query": [
+                    {
+                      "key": "category",
+                      "value": "coffee",
+                      "disabled": true
+                    },
+                    {
+                      "key": "category",
+                      "value": "fresh-produce",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "results",
+                      "value": "-1"
+                    },
+                    {
+                      "key": "avaliable",
+                      "value": "false",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "80"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 13 Feb 2026 14:21:38 GMT"
+                },
+                {
+                  "key": "X-Amzn-Trace-Id",
+                  "value": "Root=1-698f3372-3f91d99a43c3437527e85673;Parent=0f2bf22e1780cc02;Sampled=0;Lineage=1:9dbbed17:0"
+                },
+                {
+                  "key": "x-amzn-RequestId",
+                  "value": "f9587d68-5871-4e90-b0c9-7ca8d2f93933"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type,X-Amz-Date,Authorization,X-Api-Key"
+                },
+                {
+                  "key": "x-amz-apigw-id",
+                  "value": "YuT55Eu7oAMEn7w="
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+                },
+                {
+                  "key": "X-Cache",
+                  "value": "Error from cloudfront"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 ca1c8b6b5358ac1cd23fb6b1d3ab8756.cloudfront.net (CloudFront)"
+                },
+                {
+                  "key": "X-Amz-Cf-Pop",
+                  "value": "MAA51-P1"
+                },
+                {
+                  "key": "X-Amz-Cf-Id",
+                  "value": "ZFMws-SdOQWCaGVp0qET-lKrvRcmPTo6oJ4IHx2YRDkCmvaiLJlYAg=="
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"error\": \"Invalid value for query parameter 'results'. Must be greater than 0.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get all Products-Results > Results Zero",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "console.clear();"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "\r",
+                  "if(pm.environment.name==='Testing')\r",
+                  "{\r",
+                  "\r",
+                  "pm.test(\"Error Message as Invalid value for query parameter Results Zero\", function () {\r",
+                  "    pm.expect(pm.response.json().error).to.eql('Invalid value for query parameter \\'results\\'. Must be greater than 0.');\r",
+                  "});\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/products?results=0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "coffee",
+                  "disabled": true
+                },
+                {
+                  "key": "category",
+                  "value": "fresh-produce",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "results",
+                  "value": "0"
+                },
+                {
+                  "key": "avaliable",
+                  "value": "false",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "To check the minimum data less than 1"
+          },
+          "response": [
+            {
+              "name": "Get all Products-Results > Results Zero",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/products?results=0",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "products"
+                  ],
+                  "query": [
+                    {
+                      "key": "category",
+                      "value": "coffee",
+                      "disabled": true
+                    },
+                    {
+                      "key": "category",
+                      "value": "fresh-produce",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "results",
+                      "value": "0"
+                    },
+                    {
+                      "key": "avaliable",
+                      "value": "false",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "1725"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 16 Feb 2026 04:58:43 GMT"
+                },
+                {
+                  "key": "X-Amzn-Trace-Id",
+                  "value": "Root=1-6992a403-14f543dc11fd5b7148203107;Parent=2074ed2ad22e974c;Sampled=0;Lineage=1:9dbbed17:0"
+                },
+                {
+                  "key": "x-amzn-RequestId",
+                  "value": "9a21d58b-adca-46b5-8a35-0ca140ab4283"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type,X-Amz-Date,Authorization,X-Api-Key"
+                },
+                {
+                  "key": "x-amz-apigw-id",
+                  "value": "Y26QlGvMoAMEazw="
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+                },
+                {
+                  "key": "X-Cache",
+                  "value": "Miss from cloudfront"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 deafc7858746b6f4d22abf36af9d6812.cloudfront.net (CloudFront)"
+                },
+                {
+                  "key": "X-Amz-Cf-Pop",
+                  "value": "MAA50-P1"
+                },
+                {
+                  "key": "X-Amz-Cf-Id",
+                  "value": "NfqdrqSlLNaf6XCxx4iBq9RpGy5Iu_wXyDwsNmLmul0qlXmnqKWtfQ=="
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": 1225,\n        \"category\": \"fresh-produce\",\n        \"name\": \"1/2 in. Brushless Hammer Drill\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 1709,\n        \"category\": \"meat-seafood\",\n        \"name\": \"Beef Choice Angus Ribeye Steak\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 1710,\n        \"category\": \"meat-seafood\",\n        \"name\": \"Angus Steak Burgers\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 2177,\n        \"category\": \"meat-seafood\",\n        \"name\": \"Cosco Three Step Steel Platform\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 2585,\n        \"category\": \"fresh-produce\",\n        \"name\": \"Green Cabbage Organic\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 3486,\n        \"category\": \"bread-bakery\",\n        \"name\": \"French Bread\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 3674,\n        \"category\": \"fresh-produce\",\n        \"name\": \"20V Max Cordless Drill Combo Kit\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 4641,\n        \"category\": \"coffee\",\n        \"name\": \"Don Francisco Colombia Supremo Medium Roast\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 4643,\n        \"category\": \"coffee\",\n        \"name\": \"Starbucks Coffee Variety Pack, 100% Arabica\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 4646,\n        \"category\": \"coffee\",\n        \"name\": \"Ethical Bean Medium Dark Roast, Espresso\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 4875,\n        \"category\": \"bread-bakery\",\n        \"name\": \"2800 Watt Inverter Generator\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 5477,\n        \"category\": \"dairy\",\n        \"name\": \"Cream Cheese\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 5478,\n        \"category\": \"dairy\",\n        \"name\": \"Low Fat Vanilla Yogurt\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 5499,\n        \"category\": \"bread-bakery\",\n        \"name\": \"Sourdough Bread\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 5774,\n        \"category\": \"candy\",\n        \"name\": \"HERSHEY'S, Milk Chocolate Almond\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 5851,\n        \"category\": \"fresh-produce\",\n        \"name\": \"Cucumber Organic\",\n        \"inStock\": false\n    },\n    {\n        \"id\": 6483,\n        \"category\": \"candy\",\n        \"name\": \"Cadbury Milk Chocolate\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 6543,\n        \"category\": \"bread-bakery\",\n        \"name\": \"Flour Tortillas\",\n        \"inStock\": false\n    },\n    {\n        \"id\": 7395,\n        \"category\": \"meat-seafood\",\n        \"name\": \"Boneless Skinless Chicken Breasts\",\n        \"inStock\": true\n    },\n    {\n        \"id\": 8554,\n        \"category\": \"candy\",\n        \"name\": \"Kinder Joy Eggs\",\n        \"inStock\": true\n    }\n]"
+            }
+          ]
+        }
+      ],
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              "if(pm.environment.name==='Testing')\r",
+              "{\r",
+              "pm.test(\"Status code is 400\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});\r",
+              "}"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": ""
+    },
+    {
+      "key": "accessToken",
+      "value": ""
+    },
+    {
+      "key": "status",
+      "value": ""
+    },
+    {
+      "key": "randomquantity",
+      "value": ""
+    }
+  ]
+}
